@@ -1,0 +1,174 @@
+<krpano>
+
+	<action name="do_crop_animation">
+		<!-- add attributes to the hotspot -->
+		registerattribute(xframes, calc((imagewidth / %1) BOR 0));
+		registerattribute(yframes, calc((imageheight / %2) BOR 0));
+		registerattribute(frames, calc(xframes * yframes));
+		registerattribute(frame, 0);
+
+		set(crop, '0|0|%1|%2');
+
+		setinterval(calc('crop_anim_' + name), calc(1.0 / %3),
+			if(loaded,
+				inc(frame);
+				if(frame GE frames, if(onlastframe !== null, onlastframe() ); set(frame,0); );
+				mod(xpos, frame, xframes);
+				div(ypos, frame, xframes);
+				Math.floor(ypos);
+				mul(xpos, %1);
+				mul(ypos, %2);
+				calc(crop, xpos + '|' + ypos + '|%1|%2');
+			  ,
+				clearinterval(calc('crop_anim_' + name));
+			  );
+		  );
+	</action>	
+
+	<action name="add_all_the_time_tooltip">
+	    txtadd(tooltipname, 'tooltip_', get(name));
+	    addhotspot(get(tooltipname));
+
+	    set(hotspot[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf');
+	    set(hotspot[get(tooltipname)].align,top);
+
+	    set(hotspot[get(tooltipname)].edge,bottom);
+	    if(device.mobile,
+	    set(hotspot[get(tooltipname)].scale,0.5);
+	    );
+	    set(hotspot[get(tooltipname)].atv,get(hotspot[get(name)].atv));
+	    set(hotspot[get(tooltipname)].ath,get(hotspot[get(name)].ath));
+	    set(hotspot[get(tooltipname)].oy,-10);
+	    set(hotspot[get(tooltipname)].autowidth,true);
+	    set(hotspot[get(tooltipname)].autoheight,true);
+	    set(hotspot[get(tooltipname)].vcenter,true);
+	    set(hotspot[get(tooltipname)].background,true);
+	    set(hotspot[get(tooltipname)].backgroundcolor,0x000000);
+	    set(hotspot[get(tooltipname)].roundedge,5);
+	    set(hotspot[get(tooltipname)].backgroundalpha,0.65);
+	    set(hotspot[get(tooltipname)].padding,7);
+	    set(hotspot[get(tooltipname)].border,false);
+	    set(hotspot[get(tooltipname)].glow,0);
+	    set(hotspot[get(tooltipname)].glowcolor,0xFFFFFF);
+	    set(hotspot[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei;  font-size:12px;');
+	    if(device.mobile,set(hotspot[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-weight:bold; font-size:24px;');
+	    	);
+	    set(hotspot[get(tooltipname)].textshadow,0);
+	    set(hotspot[get(tooltipname)].textshadowrange,6.0);
+	    set(hotspot[get(tooltipname)].textshadowangle,90);
+	    if(text == '' OR text === null,
+	    copy(hotspot[get(tooltipname)].html,scene[get(linkedscene)].title),
+	    copy(hotspot[get(tooltipname)].html,text)
+	    );    
+	    set(hotspot[get(tooltipname)].enabled,false);	
+
+
+</action>
+
+
+<action name="skin_hotspotstyle_click">
+		if(linkedscene,
+			if(linkedscene_lookat,
+				txtsplit(linkedscene_lookat, ',', hs_lookat_h, hs_lookat_v, hs_lookat_fov);
+			  );
+			set(enabled, false);
+			skin_hidetooltips();
+			tween(depth|alpha|oy|rx, 4000|0.0|-50|-60, 0.5, default,
+				skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));
+				if(hs_lookat_h !== null,
+					skin_lookat(get(hs_lookat_h), get(hs_lookat_v), get(hs_lookat_fov));
+					delete(hs_lookat_h, hs_lookat_v, hs_lookat_fov);
+				  );
+				skin_updatescroll();
+			  );
+		  );
+	</action>
+	
+	<!-- 动态热点配置 -->
+	<!-- skin_hotspotstyle - style for the hotspots -->
+
+	<style name="qianjin" url="new_spotd1_gif.png" scale="0.7"
+	       onclick="skin_loadscene(get(linkedscene), BLEND(1.0, easeInCubic));"
+	       onloaded="do_crop_animation(128,128, 60);"
+	       />
+
+	<style name="zuoguai" url="new_spotd2_gif.png" scale="0.7"
+	       onclick="skin_loadscene(get(linkedscene),BLEND(1.0, easeInCubic));"
+	       onloaded="do_crop_animation(128,128, 60);"
+	       />	
+
+	<style name="youguai" url="new_spotd3_gif.png" scale="0.7"
+	       onclick="skin_loadscene(get(linkedscene), BLEND(1.0, easeInCubic));"
+	       onloaded="do_crop_animation(128,128, 60);"
+	       />
+
+	<style name="zuoqian" url="new_spotd4_gif.png" scale="0.3"
+	       onclick="skin_loadscene(get(linkedscene), BLEND(1.0, easeInCubic));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="youqian" url="new_spotd5_gif.png" scale="0.3"
+	       onclick="skin_loadscene(get(linkedscene), BLEND(1.0, easeInCubic));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="yuandian" url="new_spotd6_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="sxyuandian" url="new_spotd7_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="shouzhi" url="new_spotd7_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);"
+	       />
+<style name="shouzhi1" url="new_spotd77_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);"
+	       />
+	<style name="fangdajing" url="new_spotd9_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="hongshizi" url="new_spotd10_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+
+	<style name="feiji" url="new_spotd11_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="xiafang" url="new_spotd2_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="xiaofeiji" url="spotd1_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="yuanquan" url="spotd2_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="qianjin1" url="spotd3_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="yuandian1" url="spotd4_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+	<style name="jiantou1" url="spotd5_gif.png" scale="0.5"
+	       onclick="looktohotspot(get(name),65);skin_loadscene(get(linkedscene), get(skin_settings.loadscene_blend));"
+	       onloaded="do_crop_animation(128,128, 60);add_all_the_time_tooltip()"
+	       />
+<style name="logohot" url="logoaction.png" scale="0.5" enabled="false"
+	       onloaded="do_crop_animation(128,128, 30);"
+	       />
+</krpano>

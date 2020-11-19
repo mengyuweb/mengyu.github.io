@@ -1,0 +1,429 @@
+<krpano version="1.20.6" title="中国铝业集团有限公司">
+
+	<include url="skin/vtourskin.xml" />
+	<include url="plugins/help.xml" />
+	<include url="config.xml" />
+	<include url="skin/tuwen.xml" />
+	<include url="hots/anihotspots.xml" />
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<plugin  name="soundinterface"
+				url="%SWFPATH%/plugins/soundinterface.swf"
+				alturl="%SWFPATH%/plugins/soundinterface.js"
+				rootpath=""
+				preload="true"
+				keep="true"
+				/> 
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="true"
+	               followmousecontrol="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="true"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext="loading..."
+	               
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<include url="skin/vtourskin_design_ultra_light.xml" />
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+	
+	
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+<!--UI设计  企业logo  -->
+	<!-- 	<layer name="my_logo" enabled="true" capture="true" keep="true"  x="10" y="10" align="lefttop" url="img/timg1.png" scale="1"  onclick="openurl('',_self);"  /> -->
+		
+	<layer type="container" width="100%" height="62"  keep="true" zorder="1" >
+	
+		<layer name="top_left" style="top_left" url="img/timg1.png" zorder="3"   /> 
+
+	</layer>
+	
+	<scene name="scene_1" title="1" onstart="" thumburl="panos/1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="130" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="1.015" atv="27.597" linkedscene="scene_2" />
+		
+	</scene>
+
+	<scene name="scene_2" title="2" onstart="" thumburl="panos/2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<!-- <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" /> -->
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+		<preview url="panos/2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		
+		<hotspot name="spot1" style="qianjin" ath="88.587" atv="28.588" linkedscene="scene_1" />
+		<hotspot name="spot2" style="qianjin" ath="-90.429" atv="25.654" linkedscene="scene_3" />
+		<hotspot name="spot3" style="qianjin" ath="-163.394" atv="26.046" linkedscene="scene_4" />
+		<!-- <hotspot name="spot4" style="qianjin" ath="-165.633" atv="12.188" linkedscene="scene_5" />
+		<hotspot name="spot5" style="qianjin" ath="-146.012" atv="9.071" linkedscene="scene_6" />
+		<hotspot name="spot6" style="qianjin" ath="-123.771" atv="8.734" linkedscene="scene_7" /> -->
+		<hotspot name="spot4" style="shouzhi" ath="-55" atv="17" onclick="open_tupian(a2I9A9235);" />
+	</scene>
+
+	<scene name="scene_3" title="3" onstart="" thumburl="panos/3.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+		<preview url="panos/3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="88.278" atv="18.165" linkedscene="scene_2" />
+		<hotspot name="spot2" style="qianjin" ath="129.372" atv="21.632" linkedscene="scene_4" />
+		<!-- <hotspot name="spot3" style="qianjin" ath="158.665" atv="12.016" linkedscene="scene_5" />
+		<hotspot name="spot4" style="qianjin" ath="-173.025" atv="11.330" linkedscene="scene_6" /> -->
+
+	</scene>
+
+	<scene name="scene_4" title="4" onstart="" thumburl="panos/4.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/4.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/4.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-84.022" atv="25.368" linkedscene="scene_2" />
+		<hotspot name="spot2" style="qianjin" ath="-128.857" atv="23.356" linkedscene="scene_3" />
+		<hotspot name="spot3" style="qianjin" ath="164.491" atv="13.758" linkedscene="scene_7" />
+		<hotspot name="spot4" style="qianjin" ath="96.687" atv="18.623" linkedscene="scene_5" />
+		<hotspot name="spot5" style="qianjin" ath="126.802" atv="11.941" linkedscene="scene_6" />
+		<hotspot name="spot6" style="shouzhi" ath="-26" atv="-10" onclick="open_tuwen(mg36);" />
+		<hotspot name="spot7" style="shouzhi" ath="30" atv="15" onclick="open_tupian(a2I9A9236);" />
+	</scene>
+
+	<scene name="scene_5" title="5" onstart="" thumburl="panos/5.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/5.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/5.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="158.374" atv="24.446" linkedscene="scene_6" />
+		<hotspot name="spot2" style="qianjin" ath="-157.049" atv="15.086" linkedscene="scene_7" />
+		<hotspot name="spot3" style="qianjin" ath="-78.461" atv="20.192" linkedscene="scene_4" />
+		<hotspot name="spot4" style="shouzhi1" ath="86" atv="-5" onclick="open_tuwen(a2I9A9289);" />
+	</scene>
+
+	<scene name="scene_6" title="6" onstart="" thumburl="panos/6.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/6.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-102.493" atv="19.964" linkedscene="scene_5" />
+		<hotspot name="spot2" style="zuoguai" ath="162.517" atv="21.443" linkedscene="scene_7" />
+		<hotspot name="spot3" style="shouzhi" ath="37" atv="-9" onclick="open_tuwen(damen);" />
+		<hotspot name="spot4" style="shouzhi" ath="32" atv="5" onclick="open_tuwen(mg29n);" />
+		<!-- js(openwindow(宽度,高度,标题,路径/html文件名称)) -->
+		<hotspot name="spot4" style="shouzhi" ath="-45" atv="35" onclick="js(openwindow(900,640,,lv/index.html))"  />
+	</scene>
+
+	<scene name="scene_7" title="7" onstart="" thumburl="panos/7.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/7.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/7.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-130.537" atv="14.659" linkedscene="scene_6" />
+		<hotspot name="spot2" style="qianjin" ath="-161.858" atv="10.693" linkedscene="scene_5" />
+		<hotspot name="spot3" style="qianjin" ath="92.092" atv="25.379" linkedscene="scene_8" />
+		<hotspot name="spot4" style="qianjin" ath="-63.159" atv="17.696" linkedscene="scene_12" />
+
+	</scene>
+
+	<scene name="scene_8" title="8" onstart="" thumburl="panos/8.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/8.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/8.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-169.266" atv="29.625" linkedscene="scene_9" />
+		<hotspot name="spot2" style="qianjin" ath="94.943" atv="27.540" linkedscene="scene_7" />
+
+	</scene>
+
+	<scene name="scene_9" title="9" onstart="" thumburl="panos/9.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/9.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/9.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="97.071" atv="31.118" linkedscene="scene_8" />
+		<hotspot name="spot2" style="qianjin" ath="-87.538" atv="22.617" linkedscene="scene_11" />
+		<hotspot name="spot3" style="qianjin" ath="-141.321" atv="25.313" linkedscene="scene_10" />
+		<hotspot name="spot4" style="shouzhi" ath="37" atv="9" onclick="open_tuwen(a2I9A9287);" />
+		<hotspot name="spot5" style="shouzhi" ath="30" atv="10" onclick="open_tuwen(a2I9A9237);" />
+		<hotspot name="spot6" style="shouzhi" ath="22" atv="11" onclick="open_tuwen(a2I9A9229);" />
+	</scene>
+
+	<scene name="scene_10" title="10" onstart="" thumburl="panos/10.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/10.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/10.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="151.999" atv="25.514" linkedscene="scene_11" />
+		<hotspot name="spot2" style="qianjin" ath="-145.382" atv="24.948" linkedscene="scene_9" />
+		<hotspot name="spot3" style="qianjin" ath="-110.036" atv="15.696" linkedscene="scene_8" />
+		<hotspot name="spot4" style="qianjin" ath="76.319" atv="13.863" linkedscene="scene_14" />
+		<!-- js(openwindow(宽度,高度,标题,路径/html文件名称)) -->
+		<!-- <hotspot name="spot5" style="shouzhi" ath="10" atv="-10" onclick="js(openwindow(2000,2000,360度环视效果展示,))"  /> -->
+	</scene>
+
+	<scene name="scene_11" title="11" onstart="" thumburl="panos/11.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/11.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/11.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="85.038" atv="25.074" linkedscene="scene_9" />
+		<hotspot name="spot2" style="qianjin" ath="155.715" atv="29.838" linkedscene="scene_10" />
+		<hotspot name="spot3" style="qianjin" ath="-125.724" atv="19.397" linkedscene="scene_14" />
+		
+	</scene>
+
+	<scene name="scene_12" title="12" onstart="" thumburl="panos/12.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/12.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/12.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-145.652" atv="19.326" linkedscene="scene_7" />
+		<hotspot name="spot2" style="qianjin" ath="87.171" atv="25.366" linkedscene="scene_13" />
+		<hotspot name="spot3" style="qianjin" ath="150.752" atv="26.164" linkedscene="scene_21" />
+		<hotspot name="spot4" style="shouzhi" ath="8" atv="-10" onclick="open_tuwen(a2I9A9288);" />
+	</scene>
+	
+	<scene name="scene_21" title="21" onstart="" thumburl="panos/21.tiles/thumb.jpg" lat="" lng="" heading="">
+	
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+	
+		<preview url="panos/21.tiles/preview.jpg" />
+	
+		<image>
+			<cube url="panos/21.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="150.618" atv="24.837" linkedscene="scene_12" />
+		<hotspot name="spot2" style="qianjin" ath="-147.379" atv="23.307" linkedscene="scene_13" />
+		<hotspot name="spot3" style="qianjin" ath="-77.963" atv="14.043" linkedscene="scene_14" />
+	
+	</scene>
+	
+	
+	<scene name="scene_13" title="13" onstart="" thumburl="panos/13.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/13.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/13.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-89.858" atv="23.670" linkedscene="scene_12" />
+		<hotspot name="spot2" style="qianjin" ath="-149.723" atv="26.105" linkedscene="scene_21" />
+		<hotspot name="spot3" style="qianjin" ath="144.345" atv="13.022" linkedscene="scene_14" />
+
+	</scene>
+
+	<scene name="scene_14" title="14" onstart="" thumburl="panos/14.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/14.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/14.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="137.893" atv="15.259" linkedscene="scene_11" />
+		<hotspot name="spot2" style="qianjin" ath="-163.064" atv="13.655" linkedscene="scene_13" />
+		<!-- place your scene hotspots here -->
+		<!-- place your scene hotspots here -->
+				<hotspot name="videospot" 
+					 url="%SWFPATH%/plugins/videoplayer.swf" 
+					 alturl="%SWFPATH%/plugins/videoplayer.js" 
+					 videourl="%SWFPATH%/img/1372018984C670.mp4"
+					 posterurl="%SWFPATH%/img/1372018994ED23.JPG"
+					 distorted="true" 
+					 width="1150" height="630" 
+					 ath="25.300" atv="-13.500" scale="0.246788"
+					 rx="-12" ry="-29" rz="0" loop="true"
+					 pausedonstart="false" directionalsound="true" range="200" volume="0.7"
+					 onclick="togglepause();" 
+					 />
+		<hotspot name="spot3" style="qianjin" ath="55.565" atv="14.692" linkedscene="scene_15" /> 
+					 
+	</scene>
+
+	<scene name="scene_15" title="15" onstart="" thumburl="panos/15.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/15.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/15.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-51.066" atv="14.338" linkedscene="scene_14" />
+		<hotspot name="spot2" style="qianjin" ath="-116.262" atv="18.902" linkedscene="scene_16" />
+		<hotspot name="spot3" style="qianjin" ath="171.828" atv="16.621" linkedscene="scene_17" />
+		<!-- js(openwindow(宽度,高度,标题,路径/html文件名称)) -->
+		<hotspot name="spot4" style="shouzhi" ath="38" atv="25" onclick="js(openwindow(900,640,烧结合成莫来石,html/index.html))"  />
+		
+	</scene>
+
+	<scene name="scene_16" title="16" onstart="" thumburl="panos/16.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/16.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/16.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="143.092" atv="19.084" linkedscene="scene_15" />
+		<hotspot name="spot2" style="qianjin" ath="-158.298" atv="17.209" linkedscene="scene_17" />
+		<hotspot name="spot3" style="qianjin" ath="90.529" atv="12.506" linkedscene="scene_14" />
+		<hotspot name="spot4" style="shouzhi" ath="-42" atv="0" onclick="open_tupian(a2I9A9230);" />
+		<hotspot name="spot5" style="shouzhi" ath="-63" atv="0" onclick="open_tupian(a2I9A9231);" />
+		<hotspot name="spot6" style="shouzhi" ath="-80" atv="0" onclick="open_tupian(a2I9A9232);" />
+		<hotspot name="spot7" style="shouzhi" ath="-86" atv="22" onclick="open_tupian(a2I9A9233);" />
+		<!-- js(openwindow(宽度,高度,标题,路径/html文件名称)) -->
+		<hotspot name="spot8" style="shouzhi" ath="-72" atv="-9" onclick="js(openwindow(900,640,,jb/index.html))"  />
+	</scene>
+
+	<scene name="scene_17" title="17" onstart="" thumburl="panos/17.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/17.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/17.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-155.275" atv="13.538" linkedscene="scene_16" />
+		<hotspot name="spot2" style="qianjin" ath="-112.959" atv="14.409" linkedscene="scene_15" />
+		<hotspot name="spot3" style="qianjin" ath="79.519" atv="28.719" linkedscene="scene_18" />
+		<!-- js(openwindow(宽度,高度,标题,路径/html文件名称)) -->
+		<hotspot name="spot4" style="shouzhi" ath="-75" atv="15" onclick="js(openwindow(900,640,,tong/index.html))"  />
+	</scene>
+
+	<scene name="scene_18" title="18" onstart="" thumburl="panos/18.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/18.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/18.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-81.764" atv="25.222" linkedscene="scene_17" />
+		<hotspot name="spot2" style="qianjin" ath="101.509" atv="19.164" linkedscene="scene_19" />
+		<hotspot name="spot3" style="shouzhi" ath="-185" atv="11" onclick="open_tupian(a2I9A9234);" />
+	</scene>
+
+	<scene name="scene_19" title="19" onstart="" thumburl="panos/19.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/19.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/19.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-161.880" atv="18.491" linkedscene="scene_18" />
+		<hotspot name="spot2" style="qianjin" ath="111.686" atv="19.460" linkedscene="scene_20" />
+		<hotspot name="spot3" style="shouzhi" ath="-12" atv="-7" onclick="open_tuwen(a2I9A9261);" />
+	</scene>
+
+	<scene name="scene_20" title="20" onstart="" thumburl="panos/20.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" vlookatmax="66" fovtype="MFOV" fov="130" fovmin="90" fovmax="140" limitview="range" />
+
+		<preview url="panos/20.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/20.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,5120" />
+		</image>
+		<hotspot name="spot1" style="qianjin" ath="-111.774" atv="12.797" linkedscene="scene_18" />
+		<hotspot name="spot2" style="qianjin" ath="-72.233" atv="14.946" linkedscene="scene_19" />
+		<hotspot name="spot3" style="shouzhi" ath="-18" atv="0" onclick="open_tupian(a2I9A9260);" />
+	</scene>
+
+	
+</krpano>

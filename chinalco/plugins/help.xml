@@ -1,0 +1,136 @@
+<krpano>
+	<layer name="ctHelp" type="container" keep="true" width="326" height="326" align="center" visible="false" onloaded="helpShow();">
+		<layer name="helpBj" url="%SWFPATH%/img/help/help_bj.png" zorder="1" align="center" alpha="0.0" />
+		<layer name="helpT1" url="%SWFPATH%/img/help/help_t1.png" zorder="2" align="center" alpha="0.0" />
+		<layer name="helpMouse" url="%SWFPATH%/img/help/help_mouse.png" zorder="3" align="rightbottom" alpha="0.0" />
+		<layer name="helpT2" url="%SWFPATH%/img/help/help_t2.png" zorder="4" align="center" alpha="0.0" />
+		<layer name="helpCloseBj" url="%SWFPATH%/img/help/help_close_bj.png" zorder="5" align="rightbottom" alpha="0.0" x="10" y="20">
+		<layer name="helpClose" url="%SWFPATH%/img/help/help_close.png" align="center" alpha="1.0" onover="helpRotate" onclick="helpHide" />
+		</layer>
+	</layer>
+	<action name="helpShow">
+		if(layer[ctHelp].visible == false,
+			set(layer[ctHelp].visible, true);
+			set(cmx.helpLoaded, true);
+			<!-- helpBj变浅透明 -->
+			tween(layer[helpCloseBj].alpha, 0.8, 0.8, linear);
+			tween(layer[helpBj].alpha, 0.6, 0.8, linear,
+				<!-- helpBj变深透明 -->
+				tween(layer[helpBj].alpha, 0.9, 0.4, linear,
+					<!-- 等待0.2s -->
+					tween(layer[helpBj].alpha, 0.9, 0.2, linear,
+						<!-- helpBj变回浅透明 -->
+						tween(layer[helpBj].alpha, 0.6, 0.6, linear,
+							<!-- helpT1变半透明 -->
+							tween(layer[helpT1].alpha, 0.9, 0.3, linear,
+								<!-- 等待0.8s -->
+								tween(layer[helpT1].alpha, 0.9, 1.0, easeInBounce,
+									<!-- helpT1消失 -->
+									tween(layer[helpT1].alpha, 0.0, 0.8, linear,
+										<!-- helpMouse出现 -->
+										tween(layer[helpMouse].alpha, 1.0, 0.5, linear);
+										<!-- helpMouse由右下放到中央 -->
+										tween(layer[helpMouse].x, 133, 0.8, linear);
+										tween(layer[helpMouse].y, 133, 0.8, linear,
+											<!-- 等待0.5s -->
+											tween(layer[helpMouse].y, 133, 0.5, linear,
+												<!-- helpMouse移动到左边 -->
+												add(help_hat, view.hlookat, -20);
+												tween(view.hlookat, get(help_hat), 0.8, linear);
+												
+												tween(layer[helpMouse].x, 250, 0.8, linear,
+													<!-- 等待0.3s -->
+													tween(layer[helpMouse].x, 250, 0.3, linear,
+														<!-- helpMouse移动到顶部 -->
+														add(help_hat, view.hlookat, 20);
+														add(help_vat, view.vlookat, -20);
+														tween(view.hlookat, get(help_hat), 0.8, linear);
+														tween(view.vlookat, get(help_vat), 0.8, linear);
+														
+														tween(layer[helpMouse].x, 133, 0.8, linear);
+														tween(layer[helpMouse].y, 250, 0.8, linear,
+															<!-- 等待0.3s -->
+															tween(layer[helpMouse].y, 250, 0.3, linear,
+																<!-- helpMouse移动到右边 -->
+																add(help_hat, view.hlookat, 20);
+																add(help_vat, view.vlookat, 20);
+																tween(view.hlookat, get(help_hat), 0.8, linear);
+																tween(view.vlookat, get(help_vat), 0.8, linear);
+														
+																tween(layer[helpMouse].x, 16, 0.8, linear);
+																tween(layer[helpMouse].y, 133, 0.8, linear,
+																	<!-- 等待0.3s -->
+																	tween(layer[helpMouse].y, 133, 0.3, linear,
+																		<!-- helpMouse移动到底部 -->
+																		add(help_hat, view.hlookat, -20);
+																		add(help_vat, view.vlookat, 20);
+																		tween(view.hlookat, get(help_hat), 0.8, linear);
+																		tween(view.vlookat, get(help_vat), 0.8, linear);
+																		
+																		tween(layer[helpMouse].x, 133, 0.8, linear);
+																		tween(layer[helpMouse].y, 16, 0.8, linear,
+																			<!-- 等待0.3s -->
+																			tween(layer[helpMouse].y, 16, 0.3, linear,
+																				<!-- helpMouse移动到中央 -->
+																				add(help_vat, view.vlookat, -20);
+																				tween(view.vlookat, get(help_vat), 0.8, linear);
+	
+																				tween(layer[helpMouse].y, 133, 1.2, easeOutQuad,
+																					<!-- helpMouse放回右下角，且消失 -->
+																					tween(layer[helpMouse].x, 0, 0.8, linear);
+																					tween(layer[helpMouse].y, 0, 0.8, linear);
+																					tween(layer[helpMouse].alpha, 0.0, 0.8, easeOutQuad);
+																					tween(layer[helpT2].alpha, 1.0, 1.5, easeInQuart,
+																						<!-- 自动关闭 -->
+																						delayedcall(5.0, helpHide);
+																					);
+																				);
+																			);
+																		);
+																	);
+																);
+															);
+														);
+													);
+												);
+											);
+										);
+									);
+								);
+							);
+						);
+					);
+				);
+			);
+		);
+	</action>
+	<action name="helpHide">
+		stoptween(
+			layer[helpBj].alpha,
+			layer[helpT1].alpha,
+			layer[helpT2].alpha,
+			layer[helpMouse].alpha,
+			layer[helpMouse].x,
+			layer[helpMouse].y,
+			view.hlookat,
+			view.vlookat
+		);
+		tween(layer[helpCloseBj].alpha, 0.0);
+		tween(layer[helpT2].alpha, 0.0);
+		tween(layer[ctHelp].alpha, 0.0, 0.5, linear,
+			tween(layer[helpT1].alpha, 0.0);
+			set(layer[ctHelp].alpha, 1.0);
+			set(layer[helpMouse].x, 0);
+			set(layer[helpMouse].y, 0);
+			set(layer[helpMouse].alpha, 0);
+			set(layer[ctHelp].visible, false);
+		);
+	</action>
+	<action name="helpRotate">
+		ifnot(rteing,
+			set(rteing, true);
+			add(help_rte, rotate, 180);
+			tween(rotate, get(help_rte), 0.5, easeOutCirc, delete(rteing));
+		);
+	</action>
+</krpano>

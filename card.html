@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>IC和CPU卡测试</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div style="padding: 20px;">
+		<button id='read-button' onclick='read()'>Read</button>
+		<button id='write-button' onclick='write_extend()'>Write Extend</button>
+		<button id='write-head-button' onclick='write_head()'>Write Head</button>
+		<button id='write-trade-button' onclick='write_trade()'>Write Trade</button>
+		<button id='card-type-button' onclick='card_type()'>Card Type</button>
+		<button id='cpu-reset-button' onclick='cpu_reset()'>Cpu Reset</button>
+
+		<p>card type>>>>>>>>>>>>>>>>>>>>>>>></p>
+		<div id="card" style="font-size: x-large; margin-left: 200px;"></div>
+		<div id="m1Region">
+			<p>head info>>>>>>>>>>>>>>>>>>>>>>>>></p>
+			cardId:<input id="cardId" style="width:250px;readonly:true"></input>
+			memberCode:<input id="memberCode" style="width:250px"></input>
+			cardNo:<input id="cardNo" style="width:250px"></input>
+			<br />
+			carrierCode:<input id="carrierCode" style="width:250px"></input>
+			carrierName:<input id="carrierName" style="width:250px"></input>
+			idCardNo:<input id="idCardNo" style="width:250px"></input>
+			<br />
+			tel:<input id="tel" style="width:250px"></input>
+			area:<input id="area" style="width:250px"></input>
+			address:<input id="address" style="width:250px"></input>
+
+			<br />
+			<p>trade info>>>>>>>>>>>>>>>>>>>>>>>></p>
+			<table id="tradeDetail"></table>
+		</div>
+		<div id="cpuRegion" style="display: none;">
+			<p>head info>>>>>>>>>>>>>>>>>>>>>>>>></p>
+			cardType:<input id="cardTypeCpu" style="width:250px;readonly:true"></input>
+			memberCode:<input id="memberCodeCpu" style="width:250px"></input>
+			memberName:<input id="memberNameCpu" style="width:250px"></input>
+			<br />
+			memberType:<input id="memberTypeCpu" style="width:250px"></input>
+			cardNo:<input id="cardNoCpu" style="width:250px"></input>
+			idCardNo:<input id="idCardNoCpu" style="width:250px"></input>
+			<br />
+			tel:<input id="telCpu" style="width:250px"></input>
+			area:<input id="areaCpu" style="width:250px"></input>
+			address:<input id="addressCpu" style="width:250px"></input>
+			Other:<input id="otherCpu" style="width:250px"></input>
+
+			<br />
+			<p>trade info>>>>>>>>>>>>>>>>>>>>>>>></p>
+			<div style="width: 1200px;margin-left: 10px;height: 300px;">
+				<table id="tradeDetailCpu"></table>
+			</div>
+		</div>
+		<div id='response'></div>
+		</div>
+	</body>
+	<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+	<script src="ZsyD8.js"></script>
+	<script>
+		var card = undefined;
+		setTimeout(function() {
+			if (!ZsyD8.isReady()) {
+				alert("插件未安装,读卡机功能不可用！请在安装插件后刷新本页面");
+				throw "插件未安装,读卡机功能不可用！请在安装插件后刷新本页面";
+			}
+		}, 500)
+
+		function read() {
+			ZsyD8.readCard(function(d) {
+					var result = d.content;
+					document.getElementById('card').innerHTML = result.card;
+					card = result.card;
+					if (result.card == "m1") {
+						$("#cpuRegion").hide();
+						$("#m1Region").show();
+						document.getElementById('cardId').value = result.cardId;
+						document.getElementById('memberCode').value = result.memberCode;
+						document.getElementById('cardNo').value = result.cardNo;
+						document.getElementById('carrierCode').value = result.carrierCode;
+						document.getElementById('carrierName').value = result.carrierName;
+						document.getElementById('idCardNo').value = result.idCardNo;
+						document.getElementById('tel').value = result.tel;
+						document.getElementById('address').value = result.address;
+						document.getElementById('area').value = result.area;
+						//$('#tradeDetail').bootstrapTable('load', result.detail);
+						document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(d) + "</p>";
+					} else {
+						$("#cpuRegion").show();
+						$("#m1Region").hide();
+						document.getElementById('cardTypeCpu').value = result.cardType;
+						document.getElementById('memberCodeCpu').value = result.memberCode;
+						document.getElementById('memberNameCpu').value = result.memberName;
+						document.getElementById('memberTypeCpu').value = result.memberType;
+						document.getElementById('cardNoCpu').value = result.cardNo;
+						document.getElementById('idCardNoCpu').value = result.idCardNo;
+						document.getElementById('telCpu').value = result.tel;
+						document.getElementById('addressCpu').value = result.address;
+						document.getElementById('areaCpu').value = result.area;
+						//$('#tradeDetailCpu').bootstrapTable('load', result.detail);
+						document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(d) + "</p>";
+					}
+				},
+				function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+		}
+
+		function write_extend() {
+			var address = document.getElementById('addressCpu').value;
+			var area = document.getElementById('areaCpu').value;
+			if (ZsyD8) {
+				ZsyD8.writeExtend({
+					address: address,
+					area: area
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+			}
+		}
+
+		function cpu_reset() {
+			if (ZsyD8) {
+				ZsyD8.cpuReset(function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+			}
+		}
+
+		function write_head() {
+			if (card == undefined) {
+				alert("请先读卡或获取卡类型");
+			} else if (card == "m1") {
+				var cardId = document.getElementById('cardId').value;
+				var memberCode = document.getElementById('memberCode').value;
+				var cardNo = document.getElementById('cardNo').value;
+				var carrierCode = document.getElementById('carrierCode').value;
+				var carrierName = document.getElementById('carrierName').value;
+				var idCardNo = document.getElementById('idCardNo').value;
+				var tel = document.getElementById('tel').value;
+				var address = document.getElementById('address').value;
+				var area = document.getElementById('area').value;
+				ZsyD8.writeHead({
+					cardId: cardId,
+					memberCode: memberCode,
+					cardNo: cardNo,
+					carrierCode: carrierCode,
+					carrierName: carrierName,
+					idCardNo: idCardNo,
+					tel: tel,
+					address: address,
+					area: area
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+			} else if (card == "cpu") {
+				var cardType = document.getElementById('cardTypeCpu').value;
+				var memberCode = document.getElementById('memberCodeCpu').value;
+				var cardNo = document.getElementById('cardNoCpu').value;
+				var memberName = document.getElementById('memberNameCpu').value;
+				var memberType = document.getElementById('memberTypeCpu').value;
+				var idCardNo = document.getElementById('idCardNoCpu').value;
+				var tel = document.getElementById('telCpu').value;
+				var other = document.getElementById('otherCpu').value;
+				ZsyD8.writeHead({
+					cardType: cardType,
+					memberCode: memberCode,
+					cardNo: cardNo,
+					memberName: memberName,
+					memberType: memberType,
+					idCardNo: idCardNo,
+					tel: tel,
+					Other: other
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+			}
+
+		}
+
+		function write_trade() {
+			if (card == undefined) {
+				alert("请先读卡或获取卡类型");
+			} else if (card == "m1") {
+				ZsyD8.writeTrade({
+						"tradeDate": "2020402",
+						"tradeCount": 2, //对应下面数组的长度
+						"tradeType": 1,
+						"detail": [
+							{
+								"account": 6.78,
+								"backCode": "21234567890123456789",
+								"batch": "哈哈",
+								"brandCode": "03",
+								"num": 21.22,
+								"place": "310000",
+								"productCode": "20200542",
+								"supplierCode": "3101140600025",
+								"supplierName": "王婷2223",
+								"vehicle": "沪A132",
+								"weight": 2.5
+							},
+							{
+								"account": 6.78,
+								"backCode": "31234567890123456789",
+								"batch": "哈哈qewq",
+								"brandCode": "032",
+								"num": 4.45,
+								"place": "3100001",
+								"productCode": "20542",
+								"supplierCode": "31140600025",
+								"supplierName": "mengyu",
+								"vehicle": "沪A132",
+								"weight": 26.12
+							}
+						]
+					}
+
+					,
+					function(res) {
+						document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+					},
+					function(res) {
+						document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+					});
+			} else if (card == "cpu") {
+				ZsyD8.writeTrade({
+					"tradeDate": "20200401",
+					"tradeCount": 3,
+					"tradeType": 50,
+					"Other": "长恨歌",
+					"detail": [{
+							"sellTradeNo": 123123123,
+							"marketCode": 123,
+							"marketName": "江杨批发市场",
+							"AddressCode": 310,
+							"amount": 3.45,
+							"backCode": "31011406000000000015",
+							"num": 2.34,
+							"place": "310000",
+							"productCode": "21111011",
+							"supplierCode": "3101140600025",
+							"supplierName": "王婷",
+							"vehicle": "沪A132",
+							"weight": 1.23,
+							"Other": "hum..."
+						},
+						{
+							"sellTradeNo": 123123123,
+							"marketCode": 123,
+							"marketName": "江杨批发市场",
+							"AddressCode": 310,
+							"amount": 9.45,
+							"backCode": "31011406000000000015",
+							"num": 2.34,
+							"place": "310000",
+							"productCode": "21111011",
+							"supplierCode": "3101140600025",
+							"supplierName": "王婷",
+							"vehicle": "沪A132",
+							"weight": 2.23,
+							"Other": "hum..."
+						},
+						{
+							"sellTradeNo": 123123123,
+							"marketCode": 123,
+							"marketName": "江杨批发市场",
+							"AddressCode": 310,
+							"amount": 8.45,
+							"backCode": "31011406000000000015",
+							"num": 2.35,
+							"place": "310000",
+							"productCode": "21111011",
+							"supplierCode": "3101140600025",
+							"supplierName": "王婷",
+							"vehicle": "沪A132",
+							"weight": 1.23,
+							"Other": "hum..."
+						}
+					]
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				}, function(res) {
+					document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+				});
+			}
+		}
+
+		function card_type() {
+			ZsyD8.cardType(function(res) {
+				document.getElementById('card').innerHTML = res.content;
+				card = res.content;
+				if (card == "m1") {
+					$("#cpuRegion").hide();
+					$("#m1Region").show();
+				} else {
+					$("#cpuRegion").show();
+					$("#m1Region").hide();
+				}
+				document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+			}, function(res) {
+				document.getElementById('response').innerHTML += "<p>response:" + JSON.stringify(res) + "</p>";
+			})
+		}
+
+		// 列表数据加载
+		$('#tradeDetail').bootstrapTable({
+			sidePagination: 'client',
+			smartDisplay: false,
+			pagination: true,
+			pageSize: 25,
+			pageList: [10, 20, 50, 100],
+			columns: [{
+					field: "supplierCode",
+					title: "supplierCode",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "productCode",
+					title: "productCode",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "brandCode",
+					title: "brandCode",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "supplierName",
+					title: "supplierName",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "weight",
+					title: "weight",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "num",
+					title: "num",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "account",
+					title: "account",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "backCode",
+					title: "backCode",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "vehicle",
+					title: "vehicle",
+					align: "center",
+					valign: "middle",
+				},
+				{
+					field: "place",
+					title: "place",
+					align: "center",
+					valign: "middle",
+				},
+			],
+			formatNoMatches: function() {
+				return '没有找到匹配的记录';
+			}
+		});
+
+		$('#tradeDetailCpu').bootstrapTable({
+			sidePagination: 'client',
+			smartDisplay: false,
+			pagination: true,
+			pageSize: 25,
+			pageList: [10, 20, 50, 100],
+			columns: [{
+					field: "sellTradeNo",
+					title: "sellTradeNo",
+					align: "left",
+					valign: "middle",
+				},
+				{
+					field: "supplierCode",
+					title: "supplierCode",
+					align: "left",
+					valign: "middle",
+				},
+				{
+					field: "supplierName",
+					title: "supplierName",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "productCode",
+					title: "productCode",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "marketCode",
+					title: "marketCode",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "marketName",
+					title: "marketName",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "weight",
+					title: "weight",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "num",
+					title: "num",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "amount",
+					title: "amount",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "backCode",
+					title: "backCode",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "vehicle",
+					title: "vehicle",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "place",
+					title: "place",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "AddressCode",
+					title: "AddressCode",
+					align: "right",
+					valign: "middle",
+				},
+				{
+					field: "Other",
+					title: "Other",
+					align: "right",
+					valign: "middle",
+				}
+			],
+			formatNoMatches: function() {
+				return '没有找到匹配的记录';
+			}
+		});
+	</script>
+</html>

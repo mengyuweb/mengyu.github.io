@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>交通改善</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/select2.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=M6Z0Obru4jwGswmc9jgXniyO"></script>
+	</head>
+	<body>
+		<div class="flex jcsb topWrap">
+			<div class="flex topLeft">
+				<div class="topSelect">
+					<select id="roadSection" class="form-control"></select>
+				</div>
+				<div class="topSelect">
+					<select id="particularYear" class="form-control"></select>
+				</div>
+			</div>
+			<div class="topRight">
+				<ul id="topRightId" class="flex aic">
+					<li data-id="measures" class="flex aic">
+						<img src="img/chushi.png">
+						<h4>改善措施</h4>
+						<span class="iconfont icon-arrow"></span>
+					</li>
+					<li data-id="hiddenDanger" class="flex aic">
+						<img src="img/anquan.png">
+						<h4>安全隐患</h4>
+						<span>查看详情</span>
+					</li>
+					<li data-id="evaluate" class="flex aic">
+						<img src="img/pingjia.png">
+						<h4>改善评价</h4>
+						<span>查看详情</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="container"></div>
+		<div id="measuresHtml"></div>
+		<div id="hiddenDangerHtml"></div>
+		<div id="evaluateHtml"></div>
+	</body>
+</html>
+
+<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/popper.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/select2.min.js" type="text/javascript" charset="utf-8"></script>
+<script data-main="js/main" src="js/b.js"></script>

@@ -146,6 +146,7 @@ ul li {
 	-webkit-user-select: none;
 	border-bottom: 2px solid;
 	padding-left: 35px;
+	line-height: 82px;
 }
 
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {

@@ -361,12 +361,13 @@ function fnAll() {
 
         this.gotoImg(bottonList[bottonLiIndex].id);
       },
-      gotoImg: function gotoImg(uuid) {
+      gotoImg: function gotoImg(uuid, n) {
         var index = this.bottonLiIndex;
         this.slidervalue = uuid * this.sliderstep;
+        var oid = n ? uuid : imgIdName + uuid;
 
         for (var k in planeMesh) {
-          if (planeMesh[k].uuid == imgIdName + uuid) {
+          if (planeMesh[k].uuid == oid) {
             index = k;
             break;
           }
@@ -410,7 +411,7 @@ function fnAll() {
         if (on && mouse.x - this.mousex == 0) {
           this.alerts = this.fnModals(uuid);
           this.modals = true;
-          this.gotoImg(uuid);
+          this.gotoImg(uuid, 1);
           return false;
         }
 

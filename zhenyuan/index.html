@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>珍源</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="css/slider.css">
+		<link type="text/css" rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		<div id="app" class="hide">
+			<div class="deng" :class="lightBulbBut ? 'active' : '' " @click.stop="lightBulb"></div>
+			<div class="bottonList">
+				<div class="flex fCenter">
+					<span @click.stop="arrow(-1)" class="jiantou" :class="arrowLeft ? 'active' : '' ">&lt;</span>
+					<div class="ulList">
+						<ul id="ulList" class="flex">
+							<li v-for="(item,index) in bottonList" :key="index" :class="index == bottonLiIndex ? 'active' : ''" @click.stop="bottonLi(index)">
+								<span>{{item.name}}</span>
+								<div class="bj"></div>
+							</li>
+						</ul>
+						<el-slider v-model="slidervalue" :step="sliderstep" :show-tooltip="false" @change="fnSlider"></el-slider>
+					</div>
+					<span @click.stop="arrow(1)" class="jiantou" :class="arrowRight ? 'active' : ''">&gt;</span>
+				</div>
+				
+			</div>
+			<div class="alert" :class="modals ? 'active' : ''">
+				<div class="alert-container">
+					<div class="alert-content">
+						<div v-html="alerts"></div>
+						<!-- <img src="img/bj.jpg" > -->
+					</div>
+					<div class="close" @click.stop="modalsClose">x</div>
+				</div>
+				<!-- <div class="alertBj"></div> -->
+			</div>
+		</div>
+	</body>
+	<script src="js/lib/cdn.js"></script>
+	<script src="js/lib/slider.js"></script>
+	<script src="js/lib/Tween.js"></script>
+	<script type="module" src="./js/index.js"></script>
+</html>

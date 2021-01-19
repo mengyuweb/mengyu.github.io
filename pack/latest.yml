@@ -1,8 +1,8 @@
-version: 1.3.0
+version: 1.1.0
 files:
-  - url: distribution1.3.0.exe
-    sha512: WBvXDt6sjjqrEcUAEHwgUIs0gLp8NY+heM/rtFhFLIGzvFfeyaCtahDvjiKltZWbMj5fyqvTWbP/msB32wQM/g==
-    size: 51530669
-path: distribution1.3.0.exe
-sha512: WBvXDt6sjjqrEcUAEHwgUIs0gLp8NY+heM/rtFhFLIGzvFfeyaCtahDvjiKltZWbMj5fyqvTWbP/msB32wQM/g==
-releaseDate: '2021-01-14T07:52:09.845Z'
+  - url: meng-ppt.exe
+    sha512: xZxtnuKiweGSy0lGmxZ+t/C49+dB/SpEo6sv1vvcLvQKXVF16GW56aA8DSBqGDDLCcediSBLEjFMGjrhEgO9dA==
+    size: 77284557
+path: meng-ppt.exe
+sha512: xZxtnuKiweGSy0lGmxZ+t/C49+dB/SpEo6sv1vvcLvQKXVF16GW56aA8DSBqGDDLCcediSBLEjFMGjrhEgO9dA==
+releaseDate: '2021-01-19T05:40:34.690Z'

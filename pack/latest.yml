@@ -1,8 +1,8 @@
-version: 1.1.0
+version: 1.2.0
 files:
   - url: meng-ppt.exe
-    sha512: xZxtnuKiweGSy0lGmxZ+t/C49+dB/SpEo6sv1vvcLvQKXVF16GW56aA8DSBqGDDLCcediSBLEjFMGjrhEgO9dA==
-    size: 77284557
+    sha512: FCcRdSuFb+3P4KUJ0fy0+MrTCjG2RkHQHEUX8DLPNq/IpchYx8YlVDsMK9z5BblTHohxMi9Fat6wLDkcKsllcA==
+    size: 75781657
 path: meng-ppt.exe
-sha512: xZxtnuKiweGSy0lGmxZ+t/C49+dB/SpEo6sv1vvcLvQKXVF16GW56aA8DSBqGDDLCcediSBLEjFMGjrhEgO9dA==
-releaseDate: '2021-01-19T05:40:34.690Z'
+sha512: FCcRdSuFb+3P4KUJ0fy0+MrTCjG2RkHQHEUX8DLPNq/IpchYx8YlVDsMK9z5BblTHohxMi9Fat6wLDkcKsllcA==
+releaseDate: '2021-01-19T06:13:44.077Z'

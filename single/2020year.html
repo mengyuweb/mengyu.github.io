@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8 />
+		<title>2020年会视频</title>
+		<script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+		<style type="text/css">
+			html,
+			body,
+			.videoClass {
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<video class="videoClass" id="video" controls data-setup='{}'></video>
+	</body>
+	<script>
+		if (Hls.isSupported()) {
+			var video = document.getElementById('video');
+			var hls = new Hls();
+			hls.loadSource('https://vod.ourwill.cn/6c980293vodcq1500001190/adb86d4c5285890813648344126/playlist_eof.m3u8');
+			hls.attachMedia(video);
+			hls.on(Hls.Events.MANIFEST_PARSED, function() {
+				video.play();
+			});
+		}
+	</script>
+</html>
